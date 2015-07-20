@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Oncorp</title>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/geral.css" />
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/images/favicon.ico" />
+</h:head>
+
+<h:body onload="javascript:document.getElementById('login').focus();" style="font-size: 12px;">
+
+	<p:layout fullPage="true">
+	
+		<p:layoutUnit position="north" resizable="false" size="" rendered="false">
+			
+			
+			
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" header="" footer="">
+		
+			<h:form prependId="false">
+			
+			<div align="center" style="width: 100%; height: auto;">
+			
+			<p:panel id="panelLogin" style="align: center; width: 90%; height: 100%; margin-top: 70px;">
+				
+				<p:growl id="msgLogin" globalOnly="false" showDetail="true" showSummary="false" />
+				
+				<br/><br />
+				
+				<div align="center">
+
+					<div align="center">
+						<h:graphicImage value="/resources/images/logo.png" alt=""/>
+					</div>
+
+					<h:panelGrid columns="2">
+						<p:outputLabel for="login" value="Login:" />
+						<p:inputText id="login" value="#{autenticacaoFaces.usuario.login}" style="width: 100%;" required="true" requiredMessage="Usuário: Obrigatório" />
+						<p:outputLabel for="senha" value="Senha:" />
+						<p:password id="senha" value="#{autenticacaoFaces.usuario.senha}" feedback="false" style="width: 100%;" required="true" requiredMessage="Senha: Obrigatório" />
+						
+					</h:panelGrid>
+					
+					<div  style="width: 100%; margin-left: 52px;">
+						<p:commandButton action="#{autenticacaoFaces.login}" process="@form" update="msgLogin" title="Acessar o SapWeb" id="btnAcessar" value="Autenticar" style="height: 35px;width: 135px;" icon="chaves"/>
+					</div>
+
+					<br />
+
+				</div>
+			
+			</p:panel>
+			
+			</div>
+			
+			</h:form>
+			
+		</p:layoutUnit>
+		
+	</p:layout>
+
+</h:body>
+
+</html>

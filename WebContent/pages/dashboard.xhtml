@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>Oncorp</title>
+		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/geral.css" />
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/funcoes.js"  />
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/locale-primefaces.js" />
+    	<link rel="shortcut icon" href="#{request.contextPath}/resources/images/favicon.ico" />				
+	</h:head>
+
+	<h:body style="font-size: 11px;">
+
+		<p:growl id="growl" showDetail="true" showSummary="false" sticky="false" autoUpdate="true" life="5000" globalOnly="false" />
+	
+		<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" onerror="PF('statusDialog').hide();" oncomplete="PF('statusDialog').hide();" />
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Processando..." draggable="false" closable="false" resizable="false">
+			<p:graphicImage value="../resources/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="west" size="230" resizable="true" header="Menu">
+				<ui:include id="uiMenu" src="/pages/menu.xhtml" />
+			</p:layoutUnit>
+
+			<p:layoutUnit id="areaTrabalho" position="center" header="#{autenticacaoFaces.nomeTela}">
+				<ui:include id="uiMenu2" src="#{autenticacaoFaces.tela}" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="35">
+			
+				<h:panelGrid columns="5" width="100%" style="height: 100%;" columnClasses="colunaInformativo40, colunaInformativo20, colunaInformativo20, colunaInformativo10, colunaInformativoVermelho10">
+					<h:column>
+						<h:outputText value="Brazuca-SAPWeb" />
+					</h:column>
+
+					<h:column>
+						<div align="center">
+							<h:outputText value="#{sessionScope.usuarioConectado.nome}" />
+						</div>
+					</h:column>
+
+					<h:column>
+						<h:outputText value="" />
+					</h:column>
+
+					<h:column>
+						<p:ajaxStatus style="width:100%">
+							<f:facet name="start">
+								<h:graphicImage value="../resources/images/ajax-loader-barra.gif" height="12" style="border: 0px;width:100%" />
+							</f:facet>
+
+							<f:facet name="complete">
+								<h:outputText value="" />
+							</f:facet>
+						</p:ajaxStatus>
+					</h:column>
+					
+					<h:column>
+						<h:form>
+							<p:commandLink ajax="false" value="Desconectar" style="font-weight: 700; text-decoration: none;  color:#FFFFFF; text-align: center" action="#{autenticacaoFaces.logout}" />
+						</h:form>
+					</h:column>
+				</h:panelGrid>
+			</p:layoutUnit>
+		</p:layout>
+
+	</h:body>
+
+</html>

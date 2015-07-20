@@ -1,0 +1,13 @@
+<ui:component
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  <p:commandButton id="btnInserir" value="Cadastrar" icon="salvar"  action="#{mbean.insertEvent}" update="@form" style="height:28px; width: 110px;margin-left: 2px;" rendered="#{!mbean.flagAlterar and autenticacaoFaces.permissaoSelecionada.flagInserir}" />
+  
+  <p:commandButton id="btnAlterar" value="Alterar" icon="salvar"  action="#{mbean.updateEvent}" update="@form" style="height:28px; width: 110px;margin-left: 2px;" rendered="#{mbean.flagAlterar and autenticacaoFaces.permissaoSelecionada.flagAlterar}" />
+
+</ui:component>
