@@ -3,13 +3,12 @@ package br.com.oncorp.dao;
 import java.util.List;
 
 import br.com.oncorp.model.Grupo;
-import br.com.oncorp.model.Permissao;
 import br.com.topsys.database.TSDataBaseBrokerIf;
 import br.com.topsys.database.factory.TSDataBaseBrokerFactory;
 import br.com.topsys.exception.TSApplicationException;
 import br.com.topsys.util.TSUtil;
 
-public class GrupoDAO implements CrudDAO<Grupo>{
+public class GrupoDAO implements CrudDAO<Grupo> {
 
 	@SuppressWarnings("unchecked")
 	public List<Grupo> pesquisar(Grupo model) {
@@ -61,25 +60,11 @@ public class GrupoDAO implements CrudDAO<Grupo>{
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
-		broker.beginTransaction();
-
 		model.setId(broker.getSequenceNextValue("grupos_id_seq"));
 
 		broker.setPropertySQL("grupodao.inserir", model.getId(), model.getDescricao());
 
 		broker.execute();
-
-		if (!TSUtil.isEmpty(model.getPermissoes())) {
-
-			for (Permissao item : model.getPermissoes()) {
-
-				item.setGrupo(model);
-
-				new PermissaoDAO().inserir(item, broker);
-			}
-		}
-
-		broker.endTransaction();
 
 		return model;
 
@@ -89,27 +74,9 @@ public class GrupoDAO implements CrudDAO<Grupo>{
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
-		broker.beginTransaction();
-
 		broker.setPropertySQL("grupodao.alterar", model.getDescricao(), model.getId());
 
 		broker.execute();
-
-		PermissaoDAO permissaoDAO = new PermissaoDAO();
-
-		permissaoDAO.excluirPorGrupo(model, broker);
-
-		if (!TSUtil.isEmpty(model.getPermissoes())) {
-
-			for (Permissao item : model.getPermissoes()) {
-
-				item.setGrupo(model);
-
-				new PermissaoDAO().inserir(item, broker);
-			}
-		}
-
-		broker.endTransaction();
 
 		return model;
 

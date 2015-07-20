@@ -3,6 +3,7 @@ package br.com.oncorp.faces;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,14 +24,7 @@ import br.com.topsys.web.util.TSFacesUtil;
 @SessionScoped
 @ManagedBean(name = "autenticacaoFaces")
 public class AutenticacaoFaces extends TSMainFaces {
-
-	private Usuario usuario;
-	private List<Menu> menus;
-	private List<Permissao> permissoes;
-	private Permissao permissaoSelecionada;
-	private String nomeTela, tela;
-	private Integer tabAtiva;
-
+	
 	@EJB
 	private UsuarioBS usuarioBS;
 
@@ -39,41 +33,26 @@ public class AutenticacaoFaces extends TSMainFaces {
 
 	@EJB
 	private PermissaoBS permissaoBS;
+	
+	private Usuario usuario;
+	private List<Menu> menus;
+	private List<Permissao> permissoes;
+	private Permissao permissaoSelecionada;
+	private String nomeTela, tela;
+	private Integer tabAtiva;	
 
 	public AutenticacaoFaces() {
 
-		this.clearFields();
 		this.setNomeTela("Área de Trabalho");
-
 	}
 
-	protected void clearFields() {
+	@PostConstruct
+	public void init() {
 
 		this.tabAtiva = 0;
 		this.usuario = new Usuario();
 		this.permissaoSelecionada = new Permissao();
 		this.menus = new ArrayList<Menu>();
-
-	}
-
-	public String redirecionar() {
-
-		if (!TSUtil.isEmpty(this.permissaoSelecionada.getMenu().getManagedBeanReset())) {
-			TSFacesUtil.removeManagedBeanInSession(this.permissaoSelecionada.getMenu().getManagedBeanReset());
-		}
-
-		this.setTela(this.permissaoSelecionada.getMenu().getUrl());
-		this.setNomeTela("Área de Trabalho > " + permissaoSelecionada.getMenu().getMenuPai().getDescricao() + " > " + permissaoSelecionada.getMenu().getDescricao());
-		this.setTabAtiva(Integer.valueOf(this.menus.indexOf(this.permissaoSelecionada.getMenu().getMenuPai())));
-
-		return SUCESSO;
-	}
-
-	private void carregarMenu(Grupo grupo) {
-
-		this.menus = this.menuBS.pesquisarCabecalhos(grupo);
-
-		this.permissoes = this.permissaoBS.pesquisar(grupo);
 
 	}
 
@@ -95,6 +74,27 @@ public class AutenticacaoFaces extends TSMainFaces {
 		TSFacesUtil.addObjectInSession(Constantes.USUARIO_CONECTADO, this.usuario);
 
 		return "entrar";
+	}
+
+	private void carregarMenu(Grupo grupo) {
+
+		this.menus = this.menuBS.pesquisarCabecalhos(grupo);
+
+		this.permissoes = this.permissaoBS.pesquisar(grupo);
+
+	}
+
+	public String redirecionar() {
+
+		if (!TSUtil.isEmpty(this.permissaoSelecionada.getMenu().getManagedBeanReset())) {
+			TSFacesUtil.removeManagedBeanInSession(this.permissaoSelecionada.getMenu().getManagedBeanReset());
+		}
+
+		this.setTela(this.permissaoSelecionada.getMenu().getUrl());
+		this.setNomeTela("Área de Trabalho > " + permissaoSelecionada.getMenu().getMenuPai().getDescricao() + " > " + permissaoSelecionada.getMenu().getDescricao());
+		this.setTabAtiva(Integer.valueOf(this.menus.indexOf(this.permissaoSelecionada.getMenu().getMenuPai())));
+
+		return SUCESSO;
 	}
 
 	public String logout() {

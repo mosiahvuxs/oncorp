@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -49,7 +50,8 @@ public class GrupoFaces extends TSMainFaces {
 
 	private boolean flagAlterar;
 
-	public GrupoFaces() {
+	@PostConstruct
+	public void init() {
 
 		this.limpar();
 		this.limparPesquisa();

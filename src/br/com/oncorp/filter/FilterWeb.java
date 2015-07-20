@@ -1,7 +1,6 @@
 package br.com.oncorp.filter;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -29,24 +28,12 @@ public class FilterWeb implements Filter {
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest r = (HttpServletRequest) request;
 
 		HttpServletResponse resp = (HttpServletResponse) response;
-
-		HashMap sessoes = (HashMap) request.getServletContext().getAttribute("sessoesAtivas");
-
-		if (sessoes != null && !sessoes.containsKey(r.getSession().getId())) {
-
-			sessoes.put(r.getSession().getId(), r.getSession());
-			
-			r.getSession().removeAttribute(Constantes.AUTENTICACAO_FACES);
-			r.getSession().removeAttribute(Constantes.USUARIO_CONECTADO);
-			
-		}
 
 		String uri = r.getRequestURI();
 
@@ -67,7 +54,7 @@ public class FilterWeb implements Filter {
 
 			r.getSession().removeAttribute(Constantes.AUTENTICACAO_FACES);
 			r.getSession().removeAttribute(Constantes.USUARIO_CONECTADO);
-			
+
 		}
 
 		if (!response.isCommitted()) {
