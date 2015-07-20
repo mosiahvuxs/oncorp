@@ -17,12 +17,6 @@
 
 	<p:layout fullPage="true">
 	
-		<p:layoutUnit position="north" resizable="false" size="" rendered="false">
-			
-			
-			
-		</p:layoutUnit>
-
 		<p:layoutUnit position="center" header="" footer="">
 		
 			<h:form prependId="false">
@@ -50,7 +44,7 @@
 					</h:panelGrid>
 					
 					<div  style="width: 100%; margin-left: 52px;">
-						<p:commandButton action="#{autenticacaoFaces.login}" process="@form" update="msgLogin" title="Acessar o SapWeb" id="btnAcessar" value="Autenticar" style="height: 35px;width: 135px;" icon="chaves"/>
+						<p:commandButton action="#{autenticacaoFaces.login}" ajax="false" title="Acessar o SapWeb" id="btnAcessar" value="Autenticar" style="height: 35px;width: 135px;" icon="chaves"/>
 					</div>
 
 					<br />

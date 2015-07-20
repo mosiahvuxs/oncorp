@@ -3,6 +3,7 @@ package br.com.oncorp.faces;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -28,7 +29,7 @@ public class UsuarioFaces extends TSMainFaces {
 
 	@EJB
 	private UsuarioBS usuarioBS;
-	
+
 	@EJB
 	private GrupoBS grupoBS;
 
@@ -46,11 +47,7 @@ public class UsuarioFaces extends TSMainFaces {
 
 	private String senha;
 
-	public UsuarioFaces() {
-
-		this.init();
-	}
-
+	@PostConstruct
 	public void init() {
 
 		this.limpar();

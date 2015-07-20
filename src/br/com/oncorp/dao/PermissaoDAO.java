@@ -26,7 +26,9 @@ public class PermissaoDAO implements CrudDAO<Permissao> {
 		return broker.getCollectionBean(Permissao.class, "menu.id", "menu.descricao", "menu.flagAtivo", "menu.managedBeanReset", "menu.ordem", "menu.url", "menu.menuPai.id", "menu.menuPai.descricao", "id", "flagInserir", "flagAlterar", "flagExcluir", "grupo.id");
 	}
 
-	public void inserir(Permissao model, TSDataBaseBrokerIf broker) throws TSApplicationException {
+	public Permissao inserir(Permissao model) throws TSApplicationException {
+		
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
 		model.setId(broker.getSequenceNextValue("permissoes_id_seq"));
 
@@ -35,10 +37,14 @@ public class PermissaoDAO implements CrudDAO<Permissao> {
 		model.getId(), model.getFlagAlterar(), model.getFlagExcluir(), model.getFlagInserir(), model.getGrupo().getId(), model.getMenu().getId());
 
 		broker.execute();
+		
+		return model;
 
 	}
 
-	public void excluirPorGrupo(Grupo model, TSDataBaseBrokerIf broker) throws TSApplicationException {
+	public void excluirPorGrupo(Grupo model) throws TSApplicationException {
+		
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
 		broker.setPropertySQL("permissaodao.excluirPorGrupo", model.getId());
 
@@ -54,12 +60,6 @@ public class PermissaoDAO implements CrudDAO<Permissao> {
 
 	@Override
 	public List<Permissao> pesquisar(Permissao crudModel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Permissao inserir(Permissao crudModel) throws TSApplicationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
