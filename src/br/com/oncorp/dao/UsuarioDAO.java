@@ -18,12 +18,21 @@ public class UsuarioDAO implements CrudDAO<Usuario> {
 
 		return (Usuario) broker.getObjectBean(Usuario.class, "id", "email", "flagAtivo", "login", "nome", "senha", "grupo.id");
 	}
+	
+	public Usuario obterPorLogin(Usuario model) {
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		broker.setPropertySQL("usuariodao.obterPorLogin", model.getLogin().toLowerCase());
+
+		return (Usuario) broker.getObjectBean(Usuario.class, "id", "email", "flagAtivo", "login", "nome", "senha", "grupo.id");
+	}
 
 	public Usuario obterPorLoginSenha(Usuario model) {
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
-		broker.setPropertySQL("usuariodao.obterPorLoginSenha", model.getLogin(), model.getSenhaCriptografada());
+		broker.setPropertySQL("usuariodao.obterPorLoginSenha", model.getLogin(), model.getSenha());
 
 		return (Usuario) broker.getObjectBean(Usuario.class, "id", "email", "flagAtivo", "login", "nome", "senha", "grupo.id");
 	}

@@ -2,7 +2,6 @@ package br.com.oncorp.model;
 
 import java.io.Serializable;
 
-import br.com.oncorp.util.UsuarioUtil;
 import br.com.oncorp.util.Utilitarios;
 import br.com.topsys.util.TSUtil;
 
@@ -15,7 +14,7 @@ public class Usuario implements Serializable {
 
 	private String login;
 
-	private String senha, senhaCriptografada;
+	private String senha, novaSenha;
 
 	private String email;
 
@@ -124,18 +123,12 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
-	public String getSenhaCriptografada() {
-
-		if (!TSUtil.isEmpty(TSUtil.tratarString(this.getSenha()))) {
-
-			return UsuarioUtil.getSenhaCriptografada(this.senha);
-		}
-
-		return senhaCriptografada;
+	public String getNovaSenha() {
+		return novaSenha;
 	}
 
-	public void setSenhaCriptografada(String senhaCriptografada) {
-		this.senhaCriptografada = senhaCriptografada;
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
 	}
 
 }

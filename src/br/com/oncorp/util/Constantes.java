@@ -17,6 +17,8 @@ public final class Constantes {
 	public static final String MIME_TYPE_HTML = "text/html";
 	public static final String MIME_TYPE_PDF = "application/pdf";
 
-	public static final String SMTP_SERVER = "mailing.grupoatarde.com.br";
-
+	public static final String SMTP = "mailing.grupoatarde.com.br";
+	
+	public static final String EMAIL_ONCORP = "moisessrocha@gmail.com";
+	
 }

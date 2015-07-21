@@ -23,7 +23,7 @@
 	</navigation-rule>
 
 	<lifecycle>
-		<phase-listener id="ajaxPhaseListener">br.com.oncorp.listener.AjaxPhaseListener</phase-listener>
+		<phase-listener>br.com.oncorp.listener.AutorizacaoListener</phase-listener>
 	</lifecycle>
 
 </faces-config>

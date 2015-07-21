@@ -2,9 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:f="http://xmlns.jcp.org/jsf/core" 
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -36,15 +34,31 @@
 					</div>
 
 					<h:panelGrid columns="2">
+						
 						<p:outputLabel for="login" value="Login:" />
-						<p:inputText id="login" value="#{autenticacaoFaces.usuario.login}" style="width: 100%;" required="true" requiredMessage="Usuário: Obrigatório" />
-						<p:outputLabel for="senha" value="Senha:" />
-						<p:password id="senha" value="#{autenticacaoFaces.usuario.senha}" feedback="false" style="width: 100%;" required="true" requiredMessage="Senha: Obrigatório" />
+						<p:inputText id="login" value="#{autenticacaoFaces.usuario.login}" style="width: 100%;" required="true" requiredMessage="Login: Obrigatório" />
+						
+						<p:outputLabel for="senha" value="Senha:" rendered="#{autenticacaoFaces.opcao==1 || autenticacaoFaces.opcao==2}"/>
+						<p:password id="senha" value="#{autenticacaoFaces.usuario.senha}" feedback="false" style="width: 100%;" required="true" requiredMessage="Senha: Obrigatório" rendered="#{autenticacaoFaces.opcao==1 || autenticacaoFaces.opcao==2}"/>
+						
+						<p:outputLabel for="novaSenha" value="Nova Senha:" rendered="#{autenticacaoFaces.opcao==2}"/>
+						<p:password id="novaSenha" value="#{autenticacaoFaces.usuario.novaSenha}" feedback="false" style="width: 100%;" required="true" requiredMessage="Nova Senha: Obrigatório" rendered="#{autenticacaoFaces.opcao==2}"/>
+						
+						<p:outputLabel for="acao" value="Ação" />
+						<p:selectOneMenu id="acao" value="#{autenticacaoFaces.opcao}" style="width: 105%;" required="true" requiredMessage="Ação: Obrigatório">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItem itemLabel="Autenticar" itemValue="1"/>
+							<f:selectItem itemLabel="Alterar Senha" itemValue="2"/>
+							<f:selectItem itemLabel="Recuperar Senha" itemValue="3"/>
+							<f:ajax event="change" render="@form"/>
+						</p:selectOneMenu>
 						
 					</h:panelGrid>
 					
-					<div  style="width: 100%; margin-left: 52px;">
-						<p:commandButton action="#{autenticacaoFaces.login}" ajax="false" title="Acessar o SapWeb" id="btnAcessar" value="Autenticar" style="height: 35px;width: 135px;" icon="chaves"/>
+					<div style="width: 100%; margin-left: 50px;">
+						<p:commandButton action="#{autenticacaoFaces.login}" ajax="false" title="Autenticação Oncorp" id="btnAcessar" value="OK" style="height: 35px; width: 145px;" icon="chaves" rendered="#{autenticacaoFaces.opcao==1}"/>
+						<p:commandButton ajax="false" title="Alterar Senha" id="btnAlterarSenha" value="Salvar" style="height: 35px; width: 145px; margin-left: 31px;" icon="salvar" action="#{autenticacaoFaces.alterarSenha}" rendered="#{autenticacaoFaces.opcao==2}"/>
+						<p:commandButton ajax="false" title="Recuperar Senha" id="btnRecuperarSenha" value="Recuperar" style="height: 35px; width: 145px;" icon="email" action="#{autenticacaoFaces.recuperarSenha}" rendered="#{autenticacaoFaces.opcao==3}"/>
 					</div>
 
 					<br />

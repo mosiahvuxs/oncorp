@@ -1,14 +1,13 @@
 <ui:composition xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:f="http://xmlns.jcp.org/jsf/core" 
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
 	<p:tabView prependId="false" dynamic="false" activeIndex="#{mbean.tabIndex}">
 
 		<p:tab title="Cadastro">
 
-			<h:form prependId="false" id="formCadastro" enctype="multipart/form-data">
+			<h:form prependId="false" id="formCadastro" enctype="multipart/form-data" acceptcharset="utf-8, iso-8859-1">
 
 				<p:outputPanel id="opCadastro" layout="block" autoUpdate="false" style="width: 98%;">
 
