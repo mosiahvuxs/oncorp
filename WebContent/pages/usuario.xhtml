@@ -5,43 +5,36 @@
       	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       	xmlns:p="http://primefaces.org/ui">
 
-	<ui:param name="mbean" value="${usuarioFaces}" />
-	<ui:param name="mbeanModel" value="${usuarioFaces.crudModel}" />
-	<ui:param name="mbeanPesquisaModel" value="${usuarioFaces.crudPesquisaModel}" />
+	<ui:param name="mbean" value="#{usuarioFaces}" />
+	<ui:param name="mbeanModel" value="#{usuarioFaces.crudModel}" />
+	<ui:param name="mbeanPesquisaModel" value="#{usuarioFaces.crudPesquisaModel}" />
 
 	<ui:define name="cadastro">
 	
-		<h:panelGrid columns="2">
-			
+		<h:panelGrid width="50%" columns="1" columnClasses="coluna50">
+
 			<p:outputLabel for="itNome" value="Nome" />
+			<p:inputText id="itNome" value="#{mbeanModel.nome}" style="width:95%;" required="true" requiredMessage="Nome: Obrigatório" />
+
 			<p:outputLabel for="itEmail" value="E-mail" />
-			
-			<p:inputText id="itNome" value="#{mbeanModel.nome}" style="width: 300px; text-transform: uppercase;" required="true" requiredMessage="Nome: Obrigatorio" />
-			<p:inputText id="itEmail" value="#{mbeanModel.email}" style="width: 300px;" validatorMessage="E-mail Invalido">
+			<p:inputText id="itEmail" value="#{mbeanModel.email}" style="width: 95%" validatorMessage="E-mail Inválido">
 				<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 			</p:inputText>
-			
-		</h:panelGrid>
-		
-		<h:panelGrid columns="2">
-			
-			<p:outputLabel for="grupo" value="Grupo de Acesso" />
+
 			<p:outputLabel for="itLogin" value="Login" />
-			
-			<p:selectOneMenu id="grupo" value="#{mbeanModel.grupo.id}" required="true" requiredMessage="Grupo de Acesso: Obrigatorio" style="width: 308px;">
-				<f:selectItem itemLabel="Selecione" itemValue="" />
+			<p:inputText id="itLogin" value="#{mbeanModel.login}" style="width: 50%" required="true" requiredMessage="Login: Obrigatório" />
+	
+			<p:outputLabel for="itSenha" value="Senha" rendered="#{!mbean.flagAlterar}"/>
+			<p:outputLabel for="itSenha2" value="Senha" rendered="#{mbean.flagAlterar}"/>
+			<p:password id="itSenha" value="#{mbeanModel.senha}" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" promptLabel="Digite a senha" minLength="4" maxlength="255" style="width: 50%" required="true" requiredMessage="Senha: Obrigatório" rendered="#{!mbean.flagAlterar}"/>
+			<p:password id="itSenha2" value="#{mbeanModel.senha}" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" promptLabel="Digite a senha" minLength="4" maxlength="255" style="width: 50%" rendered="#{mbean.flagAlterar}"/>
+
+			<p:outputLabel for="grupo" value="Grupo de Acesso" />
+			<p:selectOneMenu id="grupo" value="#{mbeanModel.grupo.id}" required="true" requiredMessage="Grupo de Acesso: Obrigatório" style="width: 275px;">
+				<f:selectItem itemLabel="Não Selecionado" itemValue="" />
 				<f:selectItems value="#{mbean.grupos}" />
 			</p:selectOneMenu>
-			<p:inputText id="itLogin" value="#{mbeanModel.login}" style="width: 300px;" required="true" requiredMessage="Login: Obrigatorio" />
-			
-		</h:panelGrid>
 
-		<h:panelGrid columns="2">			
-			
-			<p:outputLabel for="itSenha" value="Senha" />
-			<p:outputLabel for="cbFlagAtivo" value="Ativo?" />
-			
-			<p:password id="itSenha" value="#{mbeanModel.senha}" feedback="false" maxlength="20" style="width: 116px;"/>
 			<p:selectBooleanButton id="cbFlagAtivo" value="#{mbeanModel.flagAtivo}" offLabel="Inativo" onLabel="Ativo" />
 
 		</h:panelGrid>
@@ -54,7 +47,7 @@
 
 			<p:outputLabel for="itNomePesquisa" value="Nome" />
 			<p:outputLabel for="itLoginPesquisa" value="Login" />
-			<p:outputLabel for="cbFlagAtivoPesquisa" value="Ativo?" />
+			<p:outputLabel/>
 
 			<p:inputText id="itNomePesquisa" value="#{mbeanPesquisaModel.nome}" style="width: 200px;"/>
 			<p:inputText id="itLoginPesquisa" value="#{mbeanPesquisaModel.login}" style="width: 200px;"/>
@@ -70,7 +63,7 @@
 
 		<p:column headerText="Nome">
 			<div align="center">
-				<h:outputText value="#{linha.nome}" />
+				<h:outputText value="#{linha.nome.toUpperCase()}" />
 			</div>
 		</p:column>
 

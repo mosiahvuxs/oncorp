@@ -83,30 +83,12 @@ public class UsuarioFaces extends TSMainFaces {
 		this.grupos = super.initCombo(this.grupoBS.pesquisar(new Grupo()), "id", "descricao");
 	}
 
-	private boolean validaSenhas() {
-
-		if (!this.crudModel.getSenha().equals(this.crudModel.getConfirmaSenha())) {
-
-			super.addErrorMessage("Senhas não conferem.");
-
-			return false;
-		}
-
-		return true;
-	}
-
 	@Override
 	protected String insert() throws TSApplicationException {
 
 		super.setClearFields(false);
 
 		super.setDefaultMessage(false);
-
-		if (!this.validaSenhas()) {
-
-			return null;
-
-		}
 
 		this.crudModel.setSenha(TSCryptoUtil.gerarHash(this.crudModel.getSenha(), TSConstant.CRIPTOGRAFIA_MD5));
 
